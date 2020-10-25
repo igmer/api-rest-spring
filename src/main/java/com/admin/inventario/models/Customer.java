@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="cliente",schema="sys")
-public class Cliente {
+public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -21,6 +21,10 @@ public class Cliente {
 	private String nombre_comercial;
 	private String localidad;
 	private String comentario;
+	
+	public int getId() {
+		return id;
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -74,6 +78,12 @@ public class Cliente {
 	}
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
+	}
+	@Override
+	public String toString() {
+		return "Customer [nombre=" + nombre + ", apellido=" + apellido + ", direecion=" + direecion + ", telefono1="
+				+ telefono1 + ", email=" + email + ", nombre_comercial=" + nombre_comercial + ", localidad=" + localidad
+				+ "]";
 	}
 	
 	
