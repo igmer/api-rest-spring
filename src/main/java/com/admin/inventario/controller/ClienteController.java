@@ -1,4 +1,4 @@
-package com.admin.controller;
+package com.admin.inventario.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.admin.interfaces.CustomerService;
 import com.admin.inventario.models.Customer;
 import com.admin.inventario.repository.ClienteRepository;
+import com.admin.iventario.interfaces.CustomerService;
 
 @RestController
 @RequestMapping("/api/customer")

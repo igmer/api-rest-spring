@@ -1,26 +1,25 @@
 package com.admin.inventario;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.admin.controller.ClienteController;
-import com.admin.inventario.models.Categoria;
-import com.admin.inventario.models.Customer;
-import com.admin.inventario.models.Product;
-import com.admin.inventario.models.SubCategoria;
+import com.admin.inventario.enums.RolNombre;
+import com.admin.inventario.models.Rol;
 import com.admin.inventario.repository.CategoriaRepository;
 import com.admin.inventario.repository.ClienteRepository;
 import com.admin.inventario.repository.ProductoRepository;
+import com.admin.inventario.repository.RolRepository;
 import com.admin.inventario.repository.SubCategoriaRepository;
+import com.admin.inventario.service.RolService;
+
 
 @SpringBootApplication
-@ComponentScan({"com.admin.controller"})
-public class InventarioApplication {
+public class InventarioApplication  {
 	@Autowired
 	private CategoriaRepository catRepository;
 	@Autowired
@@ -29,12 +28,17 @@ public class InventarioApplication {
 	private ProductoRepository productoRepository;
 	@Autowired
 	private ClienteRepository clienteRepository;
+	@Autowired
+    private RolRepository rolService;
 
 	public static void main(String[] args) {
 	
 		SpringApplication.run(InventarioApplication.class, args);
 		
 	}
+
+
+	
 	
 
 }

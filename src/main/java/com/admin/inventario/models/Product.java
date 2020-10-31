@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "mnt_producto", schema = "sys")
+@Table(name = "mnt_producto", schema = "igmer")
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

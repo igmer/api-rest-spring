@@ -1,4 +1,4 @@
-package com.admin.interfaces;
+package com.admin.iventario.interfaces;
 
 import java.util.List;
 

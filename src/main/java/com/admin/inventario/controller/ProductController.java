@@ -1,4 +1,4 @@
-package com.admin.controller;
+package com.admin.inventario.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.admin.interfaces.ProductService;
 import com.admin.inventario.models.Categoria;
 import com.admin.inventario.models.Customer;
 import com.admin.inventario.models.Product;
 import com.admin.inventario.models.SubCategoria;
 import com.admin.inventario.repository.ProductoRepository;
+import com.admin.iventario.interfaces.ProductService;
 
 @RestController
 @RequestMapping("/api/products")
