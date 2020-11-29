@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.http.HttpEntity;
 
-import com.admin.inventario.models.Categoria;
+import com.admin.inventario.models.Category;
 import com.admin.inventario.models.Customer;
 import com.admin.inventario.models.Product;
-import com.admin.inventario.models.SubCategoria;
+import com.admin.inventario.models.SubCategory;
 
 public interface ProductService {
 	
@@ -17,9 +17,9 @@ public interface ProductService {
 	
 	Product saveProduct(Product product);
 	
-	List<Product> getByIdCategoria(Categoria idCategoria);
+	List<Product> getByIdCategoria(Category idCategoria);
 	
-	List<Product> getByIdSubCategoria(SubCategoria idSubCategoria);
+	List<Product> getByIdSubCategoria(SubCategory idSubCategoria);
 	
 	HttpEntity<String> insertBatchProduct(List<Product> listProducts);
 	

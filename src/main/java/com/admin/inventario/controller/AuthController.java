@@ -1,19 +1,20 @@
 package com.admin.inventario.controller;
 
 import com.admin.inventario.dto.JwtDto;
-import com.admin.inventario.dto.LoginUsuario;
-import com.admin.inventario.dto.Mensaje;
-import com.admin.inventario.dto.NuevoUsuario;
-import com.admin.inventario.enums.RolNombre;
+import com.admin.inventario.dto.LoginUser;
+import com.admin.inventario.dto.Message;
+import com.admin.inventario.dto.NewUser;
+import com.admin.inventario.enums.RolName;
 import com.admin.inventario.jwt.JwtProvider;
 import com.admin.inventario.models.Rol;
-import com.admin.inventario.models.Usuario;
+import com.admin.inventario.models.User;
 import com.admin.inventario.service.RolService;
-import com.admin.inventario.service.UsuarioService;
+import com.admin.inventario.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,51 +33,68 @@ import java.util.Set;
 @CrossOrigin
 public class AuthController {
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+	@Autowired
+	AuthenticationManager authenticationManager;
 
-    @Autowired
-    UsuarioService usuarioService;
+	@Autowired
+	UserService userService;
 
-    @Autowired
-    RolService rolService;
+	@Autowired
+	RolService rolService;
 
-    @Autowired
-    JwtProvider jwtProvider;
+	@Autowired
+	JwtProvider jwtProvider;
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping("/nuevo")
+	public ResponseEntity<?> nuevo(@Valid @RequestBody NewUser newUser, BindingResult bindingResult) {
+		try {
 
-    @PostMapping("/nuevo")
-    public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult){
-        if(bindingResult.hasErrors())
-            return new ResponseEntity(new Mensaje("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
-        if(usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario()))
-            return new ResponseEntity(new Mensaje("ese nombre ya existe"), HttpStatus.BAD_REQUEST);
-        if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
-            return new ResponseEntity(new Mensaje("ese email ya existe"), HttpStatus.BAD_REQUEST);
-        Usuario usuario =
-                new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(), nuevoUsuario.getEmail(),
-                        passwordEncoder.encode(nuevoUsuario.getPassword()));
-        Set<Rol> roles = new HashSet<>();
-        roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
-        if(nuevoUsuario.getRoles().contains("admin"))
-            roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
-        usuario.setRoles(roles);
-        usuarioService.save(usuario);
-        return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
-    }
+			if (bindingResult.hasErrors())
+				return new ResponseEntity(new Message("invalid request, please check all fields"), HttpStatus.BAD_REQUEST);
+			if (userService.existsByNombreUsuario(newUser.getUsername()))
+				return new ResponseEntity(new Message("username already exist"), HttpStatus.BAD_REQUEST);
+			if (userService.existsByEmail(newUser.getEmail()))
+				return new ResponseEntity(new Message("email already exist"), HttpStatus.BAD_REQUEST);
+			User user = new User(newUser.getName(), newUser.getUsername(), newUser.getEmail(),
+					passwordEncoder.encode(newUser.getPassword()));
+			Set<Rol> roles = new HashSet<>();
+			System.out.print(RolName.ROLE_ADMIN);
+			System.out.println();
+			System.out.println(rolService.getByRolName(RolName.ROLE_USER).get());
+			
+			if (rolService.getByRolName(RolName.ROLE_USER).isPresent()) {
+				roles.add(rolService.getByRolName(RolName.ROLE_USER).get());
 
-    @PostMapping("/login")
-    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
-        if(bindingResult.hasErrors())
-            return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
-        Authentication authentication =
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getNombreUsuario(), loginUsuario.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtProvider.generateToken(authentication);
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
-        return new ResponseEntity(jwtDto, HttpStatus.OK);
-    }
+			}
+
+			if (newUser.getRoles().contains("admin"))
+				if(rolService.getByRolName(RolName.ROLE_ADMIN).isPresent()) {
+					roles.add(rolService.getByRolName(RolName.ROLE_ADMIN).get());					
+				}
+				
+			user.setRoles(roles);
+			userService.save(user);
+			return new ResponseEntity(new Message("User saved successful"), HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity(new Message("error" + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUser loginUser, BindingResult bindingResult) {
+		if (bindingResult.hasErrors())
+			return new ResponseEntity(new Message("invalid request, please check the fields"), HttpStatus.BAD_REQUEST);
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginUser.getNombreUsuario(), loginUser.getPassword()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String jwt = jwtProvider.generateToken(authentication);
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+		return new ResponseEntity(jwtDto, HttpStatus.OK);
+	}
 }

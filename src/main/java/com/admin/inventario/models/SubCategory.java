@@ -9,33 +9,33 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="mnt_subcategoria",schema = "igmer")
-public class SubCategoria {
+@Table(name="inv_subcategory",schema = "inventory")
+public class SubCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String nombre;
+	private String name;
 	@OneToOne
 	@JoinColumn(name="idCategoria")
-	private Categoria categoria;
-	
+	private Category category;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public Categoria getCategoria() {
-		return categoria;
+	public Category getCategory() {
+		return category;
 	}
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
+	
 	
 }

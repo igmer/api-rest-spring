@@ -9,74 +9,64 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "mnt_producto", schema = "igmer")
+@Table(name = "inv_product", schema = "inventory")
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String nombre;
+	private String name;
 	@OneToOne
-	@JoinColumn(name = "id_sub_categoria")
-	private SubCategoria subCategoria;
-	private String descripcion;
-	private int exento;
-	private String codigo;
+	@JoinColumn(name = "id_sub_category")
+	private SubCategory subCategory;
+	private String description;
+	//without taxes
+	private int exempt;
+	private String code;
+	//amount in inventory or available
 	private double stock;
-
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
-
-	public SubCategoria getSubCategoria() {
-		return subCategoria;
+	public SubCategory getSubCategory() {
+		return subCategory;
 	}
-
-	public void setSubCategoria(SubCategoria subCategoria) {
-		this.subCategoria = subCategoria;
+	public void setSubCategory(SubCategory subCategory) {
+		this.subCategory = subCategory;
 	}
-
-	public String getDescripcion() {
-		return descripcion;
+	public String getDescription() {
+		return description;
 	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-
-	public int getExento() {
-		return exento;
+	public int getExempt() {
+		return exempt;
 	}
-
-	public void setExento(int exento) {
-		this.exento = exento;
+	public void setExempt(int exempt) {
+		this.exempt = exempt;
 	}
-
-	public String getCodigo() {
-		return codigo;
+	public String getCode() {
+		return code;
 	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setCode(String code) {
+		this.code = code;
 	}
-
 	public double getStock() {
 		return stock;
 	}
-
 	public void setStock(double stock) {
 		this.stock = stock;
 	}
+
+	
 
 }

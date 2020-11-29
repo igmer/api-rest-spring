@@ -1,7 +1,7 @@
 package com.admin.inventario.service;
 
-import com.admin.inventario.models.Usuario;
-import com.admin.inventario.models.UsuarioPrincipal;
+import com.admin.inventario.models.User;
+import com.admin.inventario.models.UserMain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    UsuarioService usuarioService;
+    UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
-        Usuario usuario = usuarioService.getByNombreUsuario(nombreUsuario).get();
-        return UsuarioPrincipal.build(usuario);
+        User user = userService.getByNombreUsuario(nombreUsuario).get();
+        return UserMain.build(user);
     }
 }

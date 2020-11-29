@@ -8,26 +8,26 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.admin.inventario.enums.RolNombre;
+import com.admin.inventario.enums.RolName;
 import com.admin.inventario.models.Rol;
-import com.admin.inventario.repository.CategoriaRepository;
-import com.admin.inventario.repository.ClienteRepository;
-import com.admin.inventario.repository.ProductoRepository;
+import com.admin.inventario.repository.CategoryRepository;
+import com.admin.inventario.repository.CustomerRepository;
+import com.admin.inventario.repository.ProductRepository;
 import com.admin.inventario.repository.RolRepository;
-import com.admin.inventario.repository.SubCategoriaRepository;
+import com.admin.inventario.repository.SubCategoryRepository;
 import com.admin.inventario.service.RolService;
 
 
 @SpringBootApplication
 public class InventarioApplication  {
 	@Autowired
-	private CategoriaRepository catRepository;
+	private CategoryRepository catRepository;
 	@Autowired
-	private SubCategoriaRepository subCatRepository;
+	private SubCategoryRepository subCatRepository;
 	@Autowired
-	private ProductoRepository productoRepository;
+	private ProductRepository productRepository;
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private CustomerRepository customerRepository;
 	@Autowired
     private RolRepository rolService;
 

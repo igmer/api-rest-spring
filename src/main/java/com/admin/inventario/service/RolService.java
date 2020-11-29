@@ -1,6 +1,6 @@
 package com.admin.inventario.service;
 
-import com.admin.inventario.enums.RolNombre;
+import com.admin.inventario.enums.RolName;
 import  com.admin.inventario.models.Rol;
 import com.admin.inventario.repository.RolRepository;
 
@@ -17,8 +17,11 @@ public class RolService {
     @Autowired
     RolRepository rolRepository;
 
-    public Optional<Rol> getByRolNombre(RolNombre rolNombre){
-        return rolRepository.findByRolNombre(rolNombre);
+    public Optional<Rol> getByRolName(RolName rolName){
+    	
+    	System.out.println("aqui");
+        System.out.println(rolName);
+        return rolRepository.findByRolName(rolName);
     }
 
     public void save(Rol rol){

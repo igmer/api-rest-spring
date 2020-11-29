@@ -2,7 +2,7 @@ package com.admin.inventario.dto;
 
 import javax.validation.constraints.NotBlank;
 
-public class LoginUsuario {
+public class LoginUser {
     @NotBlank
     private String nombreUsuario;
     @NotBlank

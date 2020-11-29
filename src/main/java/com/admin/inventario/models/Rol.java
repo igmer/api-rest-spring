@@ -3,23 +3,24 @@ package com.admin.inventario.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import com.admin.inventario.enums.RolNombre;
+import com.admin.inventario.enums.RolName;
 
 @Entity
-@Table(name="rol",schema = "igmer")
+@Table(name="rol",schema = "inventory")
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name="rol_name")
     @NotNull
     @Enumerated(EnumType.STRING)
-    private RolNombre rolNombre;
+    private RolName rolName;
 
     public Rol() {
     }
 
-    public Rol(@NotNull RolNombre rolNombre) {
-        this.rolNombre = rolNombre;
+    public Rol(@NotNull RolName rolName) {
+        this.rolName = rolName;
     }
 
     public int getId() {
@@ -30,11 +31,11 @@ public class Rol {
         this.id = id;
     }
 
-    public RolNombre getRolNombre() {
-        return rolNombre;
+    public RolName getRolName() {
+        return rolName;
     }
 
-    public void setRolNombre(RolNombre rolNombre) {
-        this.rolNombre = rolNombre;
+    public void setRolName(RolName rolName) {
+        this.rolName = rolName;
     }
 }

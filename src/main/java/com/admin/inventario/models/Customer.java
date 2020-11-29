@@ -7,86 +7,99 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cliente",schema="igmer")
+@Table(name = "inv_customer", schema = "inventory")
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String nombre;
-	private String apellido;
-	private String direecion;
-	private String telefono1;
-	private String telefono2;
+	private String firstname;
+	private String lastname;
+	private String direction;
+	private String tel1;
+	private String tel2;
 	private String email;
-	private String nombre_comercial;
-	private String localidad;
-	private String comentario;
-	
+	private String tradename;
+	private String location;
+	private String commentary;
+
 	public int getId() {
 		return id;
 	}
-	public String getNombre() {
-		return nombre;
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+
+	public String getFirstname() {
+		return firstname;
 	}
-	public String getApellido() {
-		return apellido;
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+
+	public String getLastname() {
+		return lastname;
 	}
-	public String getDireecion() {
-		return direecion;
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
-	public void setDireecion(String direecion) {
-		this.direecion = direecion;
+
+	public String getDirection() {
+		return direction;
 	}
-	public String getTelefono1() {
-		return telefono1;
+
+	public void setDirection(String direction) {
+		this.direction = direction;
 	}
-	public void setTelefono1(String telefono1) {
-		this.telefono1 = telefono1;
+
+	public String getTel1() {
+		return tel1;
 	}
-	public String getTelefono2() {
-		return telefono2;
+
+	public void setTel1(String tel1) {
+		this.tel1 = tel1;
 	}
-	public void setTelefono2(String telefono2) {
-		this.telefono2 = telefono2;
+
+	public String getTel2() {
+		return tel2;
 	}
+
+	public void setTel2(String tel2) {
+		this.tel2 = tel2;
+	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getNombre_comercial() {
-		return nombre_comercial;
-	}
-	public void setNombre_comercial(String nombre_comercial) {
-		this.nombre_comercial = nombre_comercial;
-	}
-	public String getLocalidad() {
-		return localidad;
-	}
-	public void setLocalidad(String localidad) {
-		this.localidad = localidad;
-	}
-	public String getComentario() {
-		return comentario;
-	}
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
-	}
-	@Override
-	public String toString() {
-		return "Customer [nombre=" + nombre + ", apellido=" + apellido + ", direecion=" + direecion + ", telefono1="
-				+ telefono1 + ", email=" + email + ", nombre_comercial=" + nombre_comercial + ", localidad=" + localidad
-				+ "]";
-	}
-	
-	
 
+	public String getTradename() {
+		return tradename;
+	}
+
+	public void setTradename(String tradename) {
+		this.tradename = tradename;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getCommentary() {
+		return commentary;
+	}
+
+	public void setCommentary(String commentary) {
+		this.commentary = commentary;
+	}
 
 }

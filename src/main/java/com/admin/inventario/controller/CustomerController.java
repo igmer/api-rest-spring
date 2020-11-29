@@ -13,26 +13,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.admin.inventario.models.Customer;
-import com.admin.inventario.repository.ClienteRepository;
+import com.admin.inventario.repository.CustomerRepository;
 import com.admin.iventario.interfaces.CustomerService;
 
 @RestController
 @RequestMapping("/api/customer")
-public class ClienteController implements CustomerService {
+public class CustomerController implements CustomerService {
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private CustomerRepository customerRepository;
 
 	@GetMapping("/all")
 	@Override
 	public List<Customer> searchAll() {
 
-		return clienteRepository.findAll();
+		return customerRepository.findAll();
 	}
 
 	@GetMapping("/customer/{id}")
 	@Override
 	public Customer getById(@PathVariable("id") int id) {
-		Optional<Customer> customer = clienteRepository.findById(id);
+		Optional<Customer> customer = customerRepository.findById(id);
 		if (customer.isPresent()) {
 			return customer.get();
 		}
@@ -43,13 +43,13 @@ public class ClienteController implements CustomerService {
 	@Override
 	public Customer saveCustomer(@RequestBody Customer customer) {
 	
-		clienteRepository.save(customer);
+		customerRepository.save(customer);
 		return customer;
 
 	}
 	@PutMapping("/customer")
 	public Customer updateCustomer(@RequestBody Customer customer) {	
-		clienteRepository.save(customer);
+		customerRepository.save(customer);
 		return customer;
 
 	}
